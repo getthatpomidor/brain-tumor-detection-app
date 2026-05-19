@@ -2,6 +2,17 @@ const fileInput = document.getElementById("fileInput");
 const uploadBtn = document.getElementById("uploadBtn");
 const result = document.getElementById("result");
 const loading = document.getElementById("loading");
+const img_preview = document.getElementById("preview");
+
+fileInput.addEventListener("change", () => {
+  const file = fileInput.files[0];
+  if (!file) {
+    return;
+  }
+  const imageURL = URL.createObjectURL(file);
+  img_preview.src = imageURL;
+  img_preview.style.display = "block";
+});
 
 uploadBtn.addEventListener("click", async () => {
   console.log("clicked");
@@ -12,8 +23,6 @@ uploadBtn.addEventListener("click", async () => {
   }
 
   loading.style.display = "block";
-  result.innerText = "";
-  uploadBtn.disabled = true;
 
   try {
     const formData = new FormData();
@@ -32,7 +41,5 @@ uploadBtn.addEventListener("click", async () => {
   } catch (error) {
     result.innerText = "Error during prediction";
   }
-  // 🔵 hide loading
   loading.style.display = "none";
-  uploadBtn.disabled = false;
 });

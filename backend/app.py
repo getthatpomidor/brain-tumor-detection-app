@@ -1,6 +1,6 @@
 from fastapi import FastAPI,UploadFile,File
 from model import predict
-from preprocess import preprocess_img
+from preprocess import preprocess_img,preprocess_dicom
 import numpy as np
 
 app=FastAPI()
@@ -14,7 +14,12 @@ def home():
 @app.post("/predict")
 async def predict_tumor(file: UploadFile=File(...)):
     file_bytes=await file.read()
-    image=preprocess_img(file_bytes)
+
+    if file.filename.endswith(".dcm"):
+        image = preprocess_dicom(file_bytes)
+    else:
+        image = preprocess_img(file_bytes)
+
     preds=predict(image)[0]
     predicted_class=class_names[np.argmax(preds)]
     confidence=float(np.max(preds))
