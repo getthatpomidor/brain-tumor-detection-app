@@ -1,13 +1,13 @@
 # OncoVista
-Currently only predicts tumor class from MRI images.
+Currently predicts tumor class from MRI and CT images.
 
-TBA: CT prediction, MRI tumor segmentation.
+TBA: MRI tumor segmentation.
 ## Tech stack
 
 ### Frontend (Desktop Application)
 - Electron.js
 - HTML, CSS, JavaScript
-- Tailwind CSS (UI styling)
+- Tailwind CSS (UI styling) **(TBA)**
 
 ### Backend (AI Inference API)
 - FastAPI (Python)
