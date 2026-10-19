@@ -1,9 +1,16 @@
 from fastapi import FastAPI,UploadFile,File
+from fastapi.middleware.cors import CORSMiddleware
 from model import predict_mri,predict_ct
 from preprocess import preprocess_img,preprocess_dicom
 import numpy as np
 
 app=FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost:5173", "http://127.0.0.1:5173", "null"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 class_names_mri = ['glioma', 'meningioma', 'no_tumor', 'pituitary']
 class_names_ct=['tumor','healthy']
