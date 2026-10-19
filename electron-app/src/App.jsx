@@ -78,7 +78,7 @@ export default function App() {
     <main className="app-shell">
       <header className="topbar">
         <div className="brand">
-          <span className="brand-name">OncoVista</span>
+          <span className="brand-name">OncoVision</span>
           <span className="brand-subtitle">
             AI-assisted tumor classification for MRI and CT images.
           </span>
@@ -217,7 +217,7 @@ export default function App() {
       <footer className="app-footer">
         <div className="footer-disclaimer">
           <p>
-            OncoVista is an AI-assisted tool intended to support medical image
+            OncoVision is an AI-assisted tool intended to support medical image
             analysis. Its results are not a medical diagnosis and must not
             replace professional medical advice. All results require review and
             interpretation by a qualified healthcare professional.
