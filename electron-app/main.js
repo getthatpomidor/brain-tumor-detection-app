@@ -1,17 +1,28 @@
-const { app, BrowserWindow, ipcMain } = require("electron/main");
+const { app, BrowserWindow } = require("electron/main");
 const path = require("node:path");
 
 const createWindow = () => {
   const win = new BrowserWindow({
-    width: 800,
-    height: 600,
+    width: 1200,
+    height: 800,
+    minWidth: 900,
+    minHeight: 600,
+    autoHideMenuBar: false,
+    show: false,
     webPreferences: {
       preload: path.join(__dirname, "preload.js"),
     },
   });
+  win.maximize();
+  win.once("ready-to-show", () => {
+    win.show();
+  });
 
-  win.loadFile("index.html");
-  win.webContents.openDevTools();
+  if (app.isPackaged) {
+    win.loadFile(path.join(__dirname, "dist", "index.html"));
+  } else {
+    win.loadURL("http://localhost:5173");
+  }
 };
 
 app.whenReady().then(() => {

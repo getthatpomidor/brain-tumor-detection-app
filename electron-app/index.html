@@ -1,43 +1,12 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>OncoVista</title>
   </head>
   <body>
-    <div>
-      <button id="mriUploadBtn">Upload MRI Image</button>
-      <button id="ctUploadBtn">Upload CT Image</button>
-    </div>
-
-    <dialog id="mriUploadDialog">
-      <input type="file" id="mriFileInput" accept="image/*" />
-      <img
-        id="mriPreview"
-        style="display: none; max-width: 300px; margin: 10px"
-      />
-      <button id="mriPredictBtn">Predict</button>
-      <button id="mriCloseBtn">Close</button>
-    </dialog>
-
-    <dialog id="ctUploadDialog">
-      <input type="file" id="ctFileInput" accept="image/*" />
-      <img
-        id="ctPreview"
-        style="display: none; max-width: 300px; margin: 10px"
-      />
-      <button id="ctPredictBtn">Predict</button>
-      <button id="ctCloseBtn">Close</button>
-    </dialog>
-
-    <p id="loading" style="display: none">Processing image...</p>
-
-    <h2 id="result"></h2>
-    <img
-      id="img_preview"
-      style="display: none; max-width: 300px; margin: 10px"
-    />
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
-
-  <script src="./renderer.js"></script>
 </html>
