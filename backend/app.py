@@ -13,7 +13,7 @@ app.add_middleware(
 )
 
 class_names_mri = ['glioma', 'meningioma', 'no_tumor', 'pituitary']
-class_names_ct=['tumor','healthy']
+class_names_ct=['healthy','tumor']
 
 @app.get("/")
 def home():
@@ -53,5 +53,5 @@ async def predict_tumor(file: UploadFile=File(...)):
 
     return {
         "class": predicted_class,
-        "confidence": confidence,
+        "confidence": confidence
     }
