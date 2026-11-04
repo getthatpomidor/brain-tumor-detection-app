@@ -30,9 +30,23 @@ export default function App() {
     setFile(null);
   }
 
+  function validateFile(file) {
+    if (!file) return "No file selected";
+    if (file.size === 0) return "File is empty";
+
+    const allowedExtensions = [".jpg", ".jpeg", ".png", ".dcm"];
+    const fileExtension = file.name
+      .slice(file.name.lastIndexOf("."))
+      .toLowerCase();
+    if (!allowedExtensions.includes(fileExtension)) return "Invalid file type";
+
+    return null;
+  }
+
   async function predict() {
-    if (!file) {
-      setError("No image uploaded");
+    const validationError = validateFile(file);
+    if (validationError) {
+      setError(validationError);
       return;
     }
     setLoading(true);
@@ -61,12 +75,25 @@ export default function App() {
         throw new Error(`Prediction failed (${response.status}): ${message}`);
       }
       const data = await response.json();
+      if (
+        typeof data.class !== "string" ||
+        typeof data.confidence !== "number" ||
+        data.confidence < 0 ||
+        data.confidence > 1
+      ) {
+        throw new Error("Invalid response format from the server");
+      }
+
       setResult({
         label: data.class,
         confidence: `${(data.confidence * 100).toFixed(2)}%`,
       });
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Unknown prediction error");
+      if (err instanceof TypeError) {
+        setError("Network error: Unable to reach the server");
+      } else {
+        setError(err.message || "An unexpected error occurred");
+      }
     } finally {
       setLoading(false);
     }
